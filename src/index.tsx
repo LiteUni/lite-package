@@ -13,44 +13,23 @@ app.get('/', (c) => {
 app.get('/archlinux/chaotic-aur/*', async (c) => {
   const url = new URL(c.req.url);
   const path = url.pathname.replace('/archlinux/chaotic-aur/', '');
-  const ext = path.split('.').pop();
 
-  if (ext === 'html' || path.includes('.') === false) {
-    const response = await fetch(`https://geo-mirror.chaotic.cx/${path}`);
-    return new Response(response.body, {
-      status: response.status,
-      headers: response.headers
-    });
-  }
-  else if (ext === 'sig') {
-    const response = await fetch(`https://geo-mirror.chaotic.cx/${path}`);
-    return new Response(response.body, {
-      status: response.status,
-      headers: response.headers
-    });
-  }
-  else {
-    const response = await fetch(`https://files.m.daocloud.io/geo-mirror.chaotic.cx/${path}`, {
-      redirect: 'manual'
-    });
-    return new Response(response.body, {
-      status: response.status,
-      headers: response.headers
-    });
-  }
+  const response = await fetch(`https://geo-mirror.chaotic.cx/${path}`);
+  return new Response(response.body, {
+    status: response.status,
+    headers: response.headers
+  });
 });
 
-app.get('/archlinux/atri/*', async (c) => {
+app.get('/archlinux/apeiria/*', async (c) => {
   const url = new URL(c.req.url);
-  const path = url.pathname.replace('/archlinux/atri/', '');
-  const ext = path.split('.').pop();
+  const path = url.pathname.replace('/archlinux/apeiria/', '');
 
-  if (ext === 'sig' || ext === 'html' || path.includes('.') === false) {
-    return c.redirect(`https://repo.apeiria.net/${path}`, 307);
-  }
-  else {
-    return c.redirect(`https://files.m.daocloud.io/arch-repo.moeneko.workers.dev/${path}`, 307);
-  }
+  const response = await fetch(`https://repo.apeiria.net/${path}`);
+  return new Response(response.body, {
+    status: response.status,
+    headers: response.headers
+  });
 });
 
 export default app;

@@ -1,4 +1,4 @@
-name = "serverless-package-repo"
+name = "lite-package"
 pages_build_output_dir = "./dist"
 
 # [vars]
